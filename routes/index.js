@@ -1,9 +1,55 @@
 var express = require('express');
 var router = express.Router();
+var knex = require('../knex')
+var users = require('./users')
+var posts = require('./posts')
+var bcrypt = require('bcrypt')
+var cookieSession = require('cookie-session')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  //console.log(req.body);
+  res.render('index');
 });
+
+router.get('/logout', function(req, res, next){
+  req.session = null
+  res.redirect('/')
+})
+// router.use('/users', users)
+// router.use('/posts', posts)
+
+router.post('/', function(req, res, next){
+
+  knex('users')
+  .where('email', req.body.email)
+  .then(function(user1){
+    if(user1.length >= 1){
+      res.render('error', {
+        message: 'email already taken'
+      })
+    }
+    else{
+      var user = req.body
+      var hash = bcrypt.hashSync(req.body.password, 12)
+      knex('users')
+      .returning('*')
+      .insert({
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        hash: hash
+      })
+      .then(function(user2){
+        // console.log(user2[0]);
+        delete user2[0].hash;
+        // console.log(user2[0]);
+        req.session.userInfo = user2[0];
+        // console.log(req.session.userInfo);
+        res.redirect('/posts')
+      })
+    }
+  })
+})
 
 module.exports = router;
