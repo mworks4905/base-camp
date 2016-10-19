@@ -6,9 +6,7 @@ var posts = require('./posts')
 var bcrypt = require('bcrypt')
 var cookieSession = require('cookie-session')
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
-  //console.log(req.body);
   res.render('index');
 });
 
@@ -16,11 +14,8 @@ router.get('/logout', function(req, res, next){
   req.session = null
   res.redirect('/')
 })
-// router.use('/users', users)
-// router.use('/posts', posts)
 
 router.post('/', function(req, res, next){
-
   knex('users')
   .where('email', req.body.email)
   .then(function(user1){
@@ -41,7 +36,7 @@ router.post('/', function(req, res, next){
         hash: hash
       })
       .then(function(user2){
-        // console.log(user2[0]);
+        console.log(user2[0]);
         delete user2[0].hash;
         // console.log(user2[0]);
         req.session.userInfo = user2[0];

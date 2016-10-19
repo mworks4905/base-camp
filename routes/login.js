@@ -4,7 +4,6 @@ var knex = require('../knex')
 var users = require('./users')
 var posts = require('./posts')
 var login = require('./login')
-var bcrypt = require('bcrypt')
 var cookieSession = require('cookie-session')
 
 router.get('/', function(req, res, next) {
