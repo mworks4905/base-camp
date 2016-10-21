@@ -10,28 +10,37 @@ router.get('/', function(req, res, next) {
     .select('users.id', 'users.first_name as firstName', 'posts.id as postId', 'posts.user_id', 'posts.title', 'posts.body')
     .orderBy('postId', 'desc')
     .then(function(data){
-      // console.log(data);
       for(i = 0; i < data.length; i++){
         if(req.session.userInfo.id == data[i].user_id){
-          // console.log();
           data[i].edit = 'Edit'
           data[i].delete = 'Delete'
-          // data[i].logout = 'Log Out'
         }
       }
         res.render('posts', {
           allPosts: data,
           logout: 'Log Out'
-          // edit: 'Edit',
-          // delete: 'Delete',
         })
     })
 });
 
-router.put('/edit', function(req, res, next){
+router.get('/editPost/:id', function(req, res, next){
+  // console.log(req.params.id);
   knex('posts')
-  .insert({
-    user_id: req.session.userInfo.id,
+    .where('id', req.params.id)
+    .then(function(data){
+      // console.log(data);
+      res.render('editPost', {
+        allPosts: data[0],
+        logout: 'Log Out'
+      })
+    })
+})
+router.post('/editPost/:id', function(req, res, next){
+  console.log(req.body);
+  knex('posts')
+  .where('id', req.params.id)
+  .update({
+    // user_id: req.session.userInfo.id,
     title: req.body.title,
     body: req.body.body
   }, '*')
@@ -40,14 +49,25 @@ router.put('/edit', function(req, res, next){
     res.redirect('/posts')
   })
 })
+// router.put('/editPost', function(req, res, next){
+//   console.log(req.body);
+//   knex('posts')
+//   .where('postId', req.body.value)
+//   // .insert({
+//   //   title: req.body.title,
+//   //   body: req.body.body
+//   // }, '*')
+//   .then(function(post){
+//     // console.log(post);
+//     res.redirect('/posts')
+//   })
+// })
 
 router.delete('/delete', function(req, res, next) {
-  // console.log(req.params);
   knex('posts')
   .del()
   .where('posts.id', req.body.value)
   .then(function(){
-
     res.render('posts')
   })
 })

@@ -2,10 +2,6 @@
 
 <a class="btn-floating btn-large waves-effect waves-light green" href="/makePost"><i class="material-icons">add</i></a>
 
-<a class="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">edit</i></a>
-
-<a id="delete" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">delete</i></a>
-
 {{#each allPosts}}
 <div id="post" class="row">
   <div class="col s12 m6">
@@ -19,7 +15,7 @@
       <div class="card-action">
         <a class="waves-effect waves-light btn" href="/comments">Comments</a>
       {{#if this.edit}}
-        <a class="editBtn waves-effect waves-light btn" value="{{this.postId}}">{{this.edit}}</a>
+        <a href="/posts/editPost/{{this.postId}}" class="editBtn waves-effect waves-light btn" value="{{this.postId}}" title="{{this.title}}" body="{{this.body}}">{{this.edit}}</a>
       {{/if}}
       {{#if this.delete}}
         <a class="deleteBtn waves-effect waves-light btn" value="{{this.postId}}">{{this.delete}}</a>

@@ -17,4 +17,25 @@ $(document).ready(function(){
     })
   })
 
+//   $('.editBtn').click(function(event){
+//     var title = $(this).attr('title');
+//     var body = $(this).attr('body');
+//     var value = $(this).attr('value');
+//     // console.log(title + " " + body);
+//     $.ajax({
+//       contentType: 'application/json',
+//       url: `/posts/editPost`,
+//       method: 'PUT',
+//       dataType: 'json',
+//       data: JSON.stringify({
+//         title: title,
+//         body: body,
+//         value: value
+//       }),
+//     }).done(() => {
+//       window.location = '/posts/editPost'
+//     }).fail(err => {
+//       window.location = '/posts/editPost'
+//     })
+//   })
 })
