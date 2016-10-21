@@ -14,7 +14,7 @@ router.post('/', function(req, res, next){
     body: req.body.body
   }, '*')
   .then(function(post){
-    console.log(post);
+    // console.log(post);
     res.redirect('/posts')
   })
 })

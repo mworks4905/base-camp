@@ -5,6 +5,7 @@ var users = require('./users')
 var posts = require('./posts')
 var login = require('./login')
 var cookieSession = require('cookie-session')
+var bcrypt = require('bcrypt')
 
 router.get('/', function(req, res, next) {
   res.render('login');
