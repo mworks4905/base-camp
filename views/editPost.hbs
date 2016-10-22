@@ -3,21 +3,21 @@
 <h5>Edit Your Post</h5>
 <br>
 <div class="row">
-  <form class="col s12" method="post">
-    <div class="row">
-      <div class="input-field col s12">
-        <input id="title" type="text" name="title" class="validate" value="{{allPosts.title}}" >
-        <label for="title">Title</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <input id="body" type="text" name="body" class="validate" value="{{allPosts.body}}">
-        <label for="body">Text</label>
-      </div>
-    </div>
-    <button class="btn waves-effect waves-light" type="submit" name="action"><a href="/posts">Submit
-      <i class="material-icons right">send</i>
-    </button>
-  </form>
+    <form class="col s12" method="POST">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="title" type="text" name="title" class="validate" value="{{allPosts.title}}">
+                <label for="title">Title</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="body" type="text" name="body" class="validate" value="{{allPosts.body}}">
+                <label for="body">Text</label>
+            </div>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+            <i class="material-icons right">send</i>
+        </button>
+    </form>
 </div>

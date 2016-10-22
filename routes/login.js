@@ -8,31 +8,31 @@ var cookieSession = require('cookie-session')
 var bcrypt = require('bcrypt')
 
 router.get('/', function(req, res, next) {
-  res.render('login');
+    res.render('login');
 });
 
-router.post('/', function(req, res, next){
-  // console.log(req.body);
-  knex('users')
-  .where('email', req.body.email)
-  .then(function(user){
-    //console.log(user);
-    if(user.length == 0){
-      res.render('error', {message: "username or password is f'ed up"})
-    }
-    else{
-      var pswdMatch = bcrypt.compareSync(req.body.password, user[0].hash)
-      delete user[0].hash
+router.post('/', function(req, res, next) {
+    knex('users')
+        .where('email', req.body.email)
+        .then(function(user) {
+            if (user.length == 0) {
+                res.render('error', {
+                    message: "username or password is f'ed up"
+                })
+            } else {
+                var pswdMatch = bcrypt.compareSync(req.body.password, user[0].hash)
+                delete user[0].hash
 
-      if(pswdMatch === false){
-        res.render('error', {message: "username or password is f'ed up"})
-      }
-      else{
-        req.session.userInfo = user[0]
-        res.redirect('/posts')
-      }
-    }
-  })
+                if (pswdMatch === false) {
+                    res.render('error', {
+                        message: "username or password is f'ed up"
+                    })
+                } else {
+                    req.session.userInfo = user[0]
+                    res.redirect('/posts')
+                }
+            }
+        })
 })
 
 module.exports = router;
